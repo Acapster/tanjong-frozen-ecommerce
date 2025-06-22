@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "name": "tanjong-frozen",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "cache-control": "s-maxage=31536000,immutable"
+      },
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot))",
+      "headers": {
+        "cache-control": "s-maxage=31536000,immutable"
+      },
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "REACT_APP_SUPABASE_URL": "@supabase-url",
+    "REACT_APP_SUPABASE_ANON_KEY": "@supabase-anon-key",
+    "REACT_APP_GOOGLE_MAPS_API_KEY": "@google-maps-api-key"
+  },
+  "build": {
+    "env": {
+      "REACT_APP_SUPABASE_URL": "@supabase-url",
+      "REACT_APP_SUPABASE_ANON_KEY": "@supabase-anon-key",
+      "REACT_APP_GOOGLE_MAPS_API_KEY": "@google-maps-api-key"
+    }
+  }
+}
